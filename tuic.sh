@@ -137,8 +137,8 @@ fi
 }
 
 instucore(){
-version=$(curl -s https://data.jsdelivr.com/v1/package/gh/EAimTY/tuic | sed -n 4p | tr -d ',"' | awk '{print $1}')
-wget -NO /usr/local/bin/tuic https://github.com/EAimTY/tuic/releases/download/${version}/tuic-server-${version}-$bit-linux-musl
+version=$(curl -s https://data.jsdelivr.com/v1/package/gh/xxf185/tuic | sed -n 4p | tr -d ',"' | awk '{print $1}')
+wget -NO /usr/local/bin/tuic https://github.com/xxf185/tuic/releases/latest/download/tuic-server-${version}-$bit-linux-musl
 if [[ -f '/usr/local/bin/tuic' ]]; then
 chmod +x /usr/local/bin/tuic
 blue "成功安装tuic内核版本：$(/usr/local/bin/tuic -v)\n"
