@@ -1,6 +1,6 @@
 #!/bin/bash
 tuygV="23.3.17 V 1.2"
-remoteV=`wget -qO- https://raw.githubusercontent.com/xxf185/tuic/master/tuic.sh | sed  -n 2p | cut -d '"' -f 2`
+remoteV=`wget -qO- https://gitlab.com/rwkgyg/tuic-yg/raw/main/tuic.sh | sed  -n 2p | cut -d '"' -f 2`
 chmod +x /root/tuic.sh
 red='\033[0;31m'
 yellow='\033[0;33m'
@@ -282,7 +282,7 @@ EOF
 cat << EOF >/etc/systemd/system/tuic.service
 [Unit]
 Description=YGKKK-TUIC
-Documentation=https://github.com/xxf/tuic
+Documentation=https://gitlab.com/rwkgyg/tuic-yg
 After=network.target
 [Service]
 User=root
@@ -371,7 +371,7 @@ susstuic
 }
 
 acme(){
-bash <(curl -L -s https://raw.githubusercontent.com/xxf185/acme/master/acme.sh)
+bash <(curl -L -s https://gitlab.com/rwkgyg/acme-script/raw/main/acme.sh)
 }
 cfwarp(){
 wget -N --no-check-certificate https://gitlab.com/rwkgyg/cfwarp/raw/main/CFwarp.sh && bash CFwarp.sh
@@ -392,12 +392,12 @@ fi
 
 uptuicyg(){
 if [[ -z $(systemctl status tuic 2>/dev/null | grep -w active) && ! -f '/etc/tuic/tuic.json' ]]; then
-red "未正常安装tuic" && exit
+red "未正常安装tuic-yg" && exit
 fi
-wget -N https://raw.githubusercontent.com/xxf185/tuic/master/tuic.sh
+wget -N https://gitlab.com/rwkgyg/tuic-yg/raw/main/tuic.sh
 chmod +x /root/tuic.sh 
 ln -sf /root/tuic.sh /usr/bin/tu
-green "tuic安装脚本升级成功" && tu
+green "tuic-yg安装脚本升级成功" && tu
 }
 
 uptuic(){
@@ -431,7 +431,7 @@ tuicshare(){
 if [[ -z $(systemctl status tuic 2>/dev/null | grep -w active) && ! -f '/etc/tuic/tuic.json' ]]; then
 red "未正常安装tuic" && exit
 fi
-red
+red "======================================================================================"
 green "当前v2rayn客户端配置文件tuic.json内容如下，保存到 /root/tuic/v2rayn.json\n"
 yellow "$(cat /root/tuic/v2rayn.json)\n" && sleep 2
 green "当前tuic节点配置明文，保存到 /root/tuic/tuic.txt"
@@ -456,7 +456,7 @@ fi
 else
 red "tuic服务启动失败，请运行systemctl status tuic查看服务状态并反馈，脚本退出" && exit
 fi
-red
+red "======================================================================================"
 url="tuic://$ym:$port?password=$pswd&alpn=h3&mode=bbr#tuic-ios-ygkkk"
 echo ${url} > /root/tuic/URL.txt
 green "\ntuic代理服务安装完成，生成脚本的快捷方式为 tu" && sleep 3
@@ -476,27 +476,39 @@ journalctl -u tuic --output cat -f
 start_menu(){
 tuicstatus
 clear
-green "..........TUIC.........."           
-
-green 
+green "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"           
+echo -e "${bblue} ░██     ░██      ░██ ██ ██         ░█${plain}█   ░██     ░██   ░██     ░█${red}█   ░██${plain}  "
+echo -e "${bblue}  ░██   ░██      ░██    ░░██${plain}        ░██  ░██      ░██  ░██${red}      ░██  ░██${plain}   "
+echo -e "${bblue}   ░██ ░██      ░██ ${plain}                ░██ ██        ░██ █${red}█        ░██ ██  ${plain}   "
+echo -e "${bblue}     ░██        ░${plain}██    ░██ ██       ░██ ██        ░█${red}█ ██        ░██ ██  ${plain}  "
+echo -e "${bblue}     ░██ ${plain}        ░██    ░░██        ░██ ░██       ░${red}██ ░██       ░██ ░██ ${plain}  "
+echo -e "${bblue}     ░█${plain}█          ░██ ██ ██         ░██  ░░${red}██     ░██  ░░██     ░██  ░░██ ${plain}  "
+green "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
+white "甬哥Github项目  ：github.com/yonggekkk"
+white "甬哥blogger博客 ：ygkkk.blogspot.com"
+white "甬哥YouTube频道 ：www.youtube.com/@ygkkk"
+green "tuic-yg脚本安装成功后，再次进入脚本的快捷方式为 tu"
+red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 green "  1. 安装tuic（必选）" 
 green "  2. 卸载tuic"
+white "----------------------------------------------------------------------------------"
 green "  3. 变更配置（端口、令牌码Token、证书）" 
 green "  4. 关闭、开启、重启tuic"   
-green "  5. 更新tuic安装脚本"
+green "  5. 更新tuic-yg安装脚本"
 green "  6. 更新tuic内核版本"
+white "----------------------------------------------------------------------------------"
 green "  7. 显示当前tuic配置明文、V2rayN配置文件"
 green "  8. ACME证书管理菜单"
 green "  9. 安装WARP（可选）"
 green " 10. 查看tuic运行日志"
 green "  0. 退出脚本"
-red 
+red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 if [[ -n $(systemctl status tuic 2>/dev/null | grep -w active) && -f '/etc/tuic/tuic.json' ]]; then
 if [ "${tuygV}" = "${remoteV}" ]; then
-echo -e "当前 tuic 安装脚本版本号：${bblue}${tuygV}${plain} ，已是最新版本\n"
+echo -e "当前 tuic-yg 安装脚本版本号：${bblue}${tuygV}${plain} ，已是最新版本\n"
 else
-echo -e "当前 tuic 安装脚本版本号：${bblue}${tuygV}${plain}"
-echo -e "检测到最新 tuic安装脚本版本号：${yellow}${remoteV}${plain} ，可选择5进行更新\n"
+echo -e "当前 tuic-yg 安装脚本版本号：${bblue}${tuygV}${plain}"
+echo -e "检测到最新 tuic-yg 安装脚本版本号：${yellow}${remoteV}${plain} ，可选择5进行更新\n"
 fi
 if [ "$ygvsion" = "$lastvsion" ]; then
 echo -e "当前 tuic 已安装内核版本号：${bblue}${ygvsion}${plain} ，已是官方最新版本"
@@ -505,7 +517,7 @@ echo -e "当前 tuic 已安装内核版本号：${bblue}${ygvsion}${plain}"
 echo -e "检测到最新 tuic 内核版本号：${yellow}${lastvsion}${plain} ，可选择6进行更新"
 fi
 fi
-red 
+red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 white "VPS系统信息如下："
 white "操作系统：  $(blue "$op")" && white "内核版本：  $(blue "$version")" && white "CPU架构：   $(blue "$cpu")" && white "虚拟化类型：$(blue "$vi")"
 white "$status"
