@@ -1,6 +1,6 @@
 #!/bin/bash
 tuygV="23.3.17 V 1.2"
-remoteV=`wget -qO- https://gitlab.com/rwkgyg/tuic-yg/raw/main/tuic.sh | sed  -n 2p | cut -d '"' -f 2`
+remoteV=`wget -qO- https://raw.githubusercontent.com/xxf185/tuic/master/tuic.sh | sed  -n 2p | cut -d '"' -f 2`
 chmod +x /root/tuic.sh
 red='\033[0;31m'
 yellow='\033[0;33m'
@@ -282,7 +282,7 @@ EOF
 cat << EOF >/etc/systemd/system/tuic.service
 [Unit]
 Description=YGKKK-TUIC
-Documentation=https://gitlab.com/rwkgyg/tuic-yg
+Documentation=https://github.com/xxf185/tuic
 After=network.target
 [Service]
 User=root
@@ -392,12 +392,12 @@ fi
 
 uptuicyg(){
 if [[ -z $(systemctl status tuic 2>/dev/null | grep -w active) && ! -f '/etc/tuic/tuic.json' ]]; then
-red "未正常安装tuic-yg" && exit
+red "未正常安装tuic" && exit
 fi
-wget -N https://gitlab.com/rwkgyg/tuic-yg/raw/main/tuic.sh
+wget -N https://raw.githubusercontent.com/xxf185/tuic/master/tuic.sh
 chmod +x /root/tuic.sh 
 ln -sf /root/tuic.sh /usr/bin/tu
-green "tuic-yg安装脚本升级成功" && tu
+green "tuic安装脚本升级成功" && tu
 }
 
 uptuic(){
@@ -487,14 +487,14 @@ green "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 white "甬哥Github项目  ：github.com/yonggekkk"
 white "甬哥blogger博客 ：ygkkk.blogspot.com"
 white "甬哥YouTube频道 ：www.youtube.com/@ygkkk"
-green "tuic-yg脚本安装成功后，再次进入脚本的快捷方式为 tu"
+green "tuic脚本安装成功后，再次进入脚本的快捷方式为 tu"
 red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 green "  1. 安装tuic（必选）" 
 green "  2. 卸载tuic"
 white "----------------------------------------------------------------------------------"
 green "  3. 变更配置（端口、令牌码Token、证书）" 
 green "  4. 关闭、开启、重启tuic"   
-green "  5. 更新tuic-yg安装脚本"
+green "  5. 更新tuic安装脚本"
 green "  6. 更新tuic内核版本"
 white "----------------------------------------------------------------------------------"
 green "  7. 显示当前tuic配置明文、V2rayN配置文件"
@@ -505,10 +505,10 @@ green "  0. 退出脚本"
 red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 if [[ -n $(systemctl status tuic 2>/dev/null | grep -w active) && -f '/etc/tuic/tuic.json' ]]; then
 if [ "${tuygV}" = "${remoteV}" ]; then
-echo -e "当前 tuic-yg 安装脚本版本号：${bblue}${tuygV}${plain} ，已是最新版本\n"
+echo -e "当前 tuic 安装脚本版本号：${bblue}${tuygV}${plain} ，已是最新版本\n"
 else
-echo -e "当前 tuic-yg 安装脚本版本号：${bblue}${tuygV}${plain}"
-echo -e "检测到最新 tuic-yg 安装脚本版本号：${yellow}${remoteV}${plain} ，可选择5进行更新\n"
+echo -e "当前 tuic 安装脚本版本号：${bblue}${tuygV}${plain}"
+echo -e "检测到最新 tuic安装脚本版本号：${yellow}${remoteV}${plain} ，可选择5进行更新\n"
 fi
 if [ "$ygvsion" = "$lastvsion" ]; then
 echo -e "当前 tuic 已安装内核版本号：${bblue}${ygvsion}${plain} ，已是官方最新版本"
@@ -539,7 +539,7 @@ esac
 }
 if [ $# == 0 ]; then
 start
-lastvsion=v`curl -s https://data.jsdelivr.com/v1/package/gh/EAimTY/tuic | sed -n 4p | tr -d ',"' | awk '{print $1}'`
+lastvsion=v`curl -s https://data.jsdelivr.com/v1/package/gh/xxf185/tuic | sed -n 4p | tr -d ',"' | awk '{print $1}'`
 ygvsion=v`/usr/local/bin/tuic -v 2>/dev/null`
 start_menu
 fi
