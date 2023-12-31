@@ -419,6 +419,9 @@ showconf(){
     yellow "Clash Meta 客户端配置文件已保存到 /root/tuic/clash-meta.yaml"
     yellow "Tuic 节点配置明文如下，并保存到 /root/tuic/tuic.txt"
     cat /root/tuic/tuic.txt
+    yellow"-----链接----" 
+    yellow
+    yellow" tuic://$uuid:$passwd@$domain:$port?alpn=h3&congestion_control=bbr#tuic"
 }
 
 menu() {
