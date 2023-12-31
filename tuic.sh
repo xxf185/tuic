@@ -195,7 +195,7 @@ inst_tuv5(){
     fi
     ${PACKAGE_INSTALL} wget curl sudo
 
-    wget https://gitlab.com/Misaka-blog/tuic-script/-/raw/main/files/tuic-server-latest-linux-$(archAffix) -O /usr/local/bin/tuic
+    wget https://github.com/xxf185/tuic/releases/download/tuic-server-1.0.0/tuic-server-latest-linux-$(archAffix) -O /usr/local/bin/tuic
     if [[ -f "/usr/local/bin/tuic" ]]; then
         chmod +x /usr/local/bin/tuic
     else
@@ -370,34 +370,6 @@ tuicswitch(){
 }
 
 changeport(){
-    if [[ $(tuic -v) == "0.8.5" ]]; then
-        oldport=$(cat /etc/tuic/tuic.json 2>/dev/null | sed -n 2p | awk '{print $2}'| tr -d ',')
-
-        read -p "设置 tuic 端口 [1-65535]（回车则随机分配端口）：" port
-        [[ -z $port ]] && port=$(shuf -i 2000-65535 -n 1)
-
-        until [[ -z $(ss -tunlp | grep -w udp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") ]]; do
-            if [[ -n $(ss -tunlp | grep -w udp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") ]]; then
-                echo -e "${RED} $port ${PLAIN} 端口已经被其他程序占用，请更换端口重试！"
-                read -p "设置 tuic 端口 [1-65535]（回车则随机分配端口）：" port
-                [[ -z $port ]] && port=$(shuf -i 2000-65535 -n 1)
-            fi
-        done
-
-        sed -i "2s/$oldport/$port/g" /etc/tuic/tuic.json
-        sed -i "4s/$oldport/$port/g" /root/tuic/tuic-client.json
-        sed -i "4s/$oldport/$port/g" /root/tuic/tuic.txt
-        sed -i "19s/$oldport/$port/g" /root/tuic/clash-meta.yaml
-        sed -i "s/$oldport/$port/g" /root/tuic/url.txt
-
-        stoptuic && starttuic
-
-        green "Tuic V4 节点端口已成功修改为：$port"
-        yellow "请手动更新客户端配置文件以使用节点"
-        showconf
-    else
-        oldport=$(cat /etc/tuic/tuic.json 2>/dev/null | sed -n 2p | awk '{print $2}' | tr -d ',' | awk -F ":" '{print $4}' | tr -d '"')
-    
         read -p "设置 tuic 端口[1-65535]（回车则随机分配端口）：" port
         [[ -z $port ]] && port=$(shuf -i 2000-65535 -n 1)
 
@@ -420,25 +392,6 @@ changeport(){
         yellow "请手动更新客户端配置文件以使用节点"
         showconf
     fi
-}
-
-changetoken(){
-    oldtoken=$(cat /etc/tuic/tuic.json 2>/dev/null | sed -n 3p | awk '{print $2}' | tr -d ',[]"')
-
-    read -p "设置tuic Token（回车跳过为随机字符）：" token
-    [[ -z $token ]] && token=$(date +%s%N | md5sum | cut -c 1-8)
-
-    sed -i "3s/$oldtoken/$token/g" /etc/tuic/tuic.json
-    sed -i "5s/$oldtoken/$token/g" /root/tuic/tuic-client.json
-    sed -i "5s/$oldtoken/$token/g" /root/tuic/tuic.txt
-    sed -i "21s/$oldtoken/$token/g" /root/tuic/clash-meta.yaml
-    sed -i "s/$oldtoken/$token/g" /root/tuic/url.txt
-
-    stoptuic && starttuic
-
-    green "Tuic 节点 Token 已成功修改为：$token"
-    yellow "请手动更新客户端配置文件以使用节点"
-    showconf
 }
 
 changeuuid(){
@@ -478,18 +431,6 @@ changepasswd(){
 }
 
 changeconf(){
-    if [[ $(tuic -v) == "0.8.5" ]]; then
-        green "Tuic V4 配置变更选择如下:"
-        echo -e " ${GREEN}1.${PLAIN} 修改端口"
-        echo -e " ${GREEN}2.${PLAIN} 修改Token"
-        echo ""
-        read -p " 请选择操作[1-2]：" confAnswer
-        case $confAnswer in
-            1 ) changeport ;;
-            2 ) changetoken ;;
-            * ) exit 1 ;;
-        esac
-    else
         green "Tuic V5 配置变更选择如下:"
         echo -e " ${GREEN}1.${PLAIN} 修改端口"
         echo -e " ${GREEN}2.${PLAIN} 修改 UUID"
