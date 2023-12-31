@@ -261,7 +261,7 @@ Sagernet、Nekobox 与 小火箭 配置说明（以下6项必填）：
 }
 EOF
 
-    url="tuic://$uuid:$passwd@$domain:$port?congestion_control=bbr&udp_relay_mode=quic&alpn=h3#tuicv5-misaka"
+    url="tuic://$uuid:$passwd@$domain:$port?congestion_control=bbr&udp_relay_mode=quic&alpn=h3#tuicv5"
     echo ${url} > /root/tuic/url.txt
 
     cat << EOF > /root/tuic/clash-meta.yaml
@@ -281,7 +281,7 @@ dns:
     - 114.114.114.114
 
 proxies:
-  - name: Misaka-tuicV5
+  - name: tuicV5
     server: $domain
     port: $port
     type: tuic
@@ -299,7 +299,7 @@ proxy-groups:
   - name: Proxy
     type: select
     proxies:
-      - Misaka-tuicV5
+       tuicV5
       
 rules:
   - GEOIP,CN,DIRECT
