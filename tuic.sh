@@ -302,7 +302,7 @@ EOF
     cat << EOF >/etc/systemd/system/tuic.service
 [Unit]
 Description=tuic Service
-Documentation=https://gitlab.com/Misaka-blog/tuic-script
+Documentation=https://github.com/xxf185/tuic
 After=network.target
 [Service]
 User=root
