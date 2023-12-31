@@ -666,38 +666,23 @@ showconf(){
 
 menu() {
     clear
-    echo "#############################################################"
-    echo -e "#                    ${RED}Tuic 一键安装脚本${PLAIN}                      #"
-    echo -e "# ${GREEN}作者${PLAIN}: MisakaNo の 小破站                                  #"
-    echo -e "# ${GREEN}博客${PLAIN}: https://blog.misaka.rest                            #"
-    echo -e "# ${GREEN}GitHub 项目${PLAIN}: https://github.com/Misaka-blog               #"
-    echo -e "# ${GREEN}GitLab 项目${PLAIN}: https://gitlab.com/Misaka-blog               #"
-    echo -e "# ${GREEN}Telegram 频道${PLAIN}: https://t.me/misakanocchannel              #"
-    echo -e "# ${GREEN}Telegram 群组${PLAIN}: https://t.me/misakanoc                     #"
-    echo -e "# ${GREEN}YouTube 频道${PLAIN}: https://www.youtube.com/@misaka-blog        #"
-    echo "#############################################################"
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} 安装 Tuic V4"
-    echo -e " ${GREEN}2.${PLAIN} ${RED}卸载 Tuic V4${PLAIN}"
-    echo " -------------"
-    echo -e " ${GREEN}3.${PLAIN} 安装 Tuic V5"
-    echo -e " ${GREEN}4.${PLAIN} ${RED}卸载 Tuic V5${PLAIN}"
-    echo " -------------"
-    echo -e " ${GREEN}5.${PLAIN} 关闭、启动、重启 Tuic"
-    echo -e " ${GREEN}6.${PLAIN} 修改 Tuic 配置"
-    echo -e " ${GREEN}7.${PLAIN} 显示 Tuic 配置文件"
-    echo " -------------"
+    echo -e "${yellow} -------------Tuic 一键安装脚本 -------------${PLAIN}"
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} 安装 Tuic V5"
+    echo -e " ${GREEN}2.${PLAIN} 卸载 Tuic V5"
+    echo -e " ${GREEN}3.${PLAIN} 关闭、启动、重启 Tuic"
+    echo -e " ${GREEN}4.${PLAIN} 修改 Tuic 配置"
+    echo -e " ${GREEN}5.${PLAIN} 显示 Tuic 配置文件"
     echo -e " ${GREEN}0.${PLAIN} 退出脚本"
     echo ""
-    read -rp "请输入选项 [0-7]: " menuInput
+    read -rp "请输入选项 [0-5]: " menuInput
     case $menuInput in
-        1 ) inst_tuv4 ;;
-        2 ) unst_tuv4 ;;
-        3 ) inst_tuv5 ;;
-        4 ) unst_tuv5 ;;
-        5 ) tuicswitch ;;
-        6 ) changeconf ;;
-        7 ) showconf ;;
+        1 ) inst_tuv5 ;;
+        2 ) unst_tuv5 ;;
+        3 ) tuicswitch ;;
+        4 ) changeconf ;;
+        5 ) showconf ;;
         * ) exit 1 ;;
     esac
 }
