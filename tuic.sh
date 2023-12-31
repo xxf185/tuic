@@ -391,7 +391,6 @@ changeport(){
         green "Tuic 节点端口已成功修改为：$port"
         yellow "请手动更新客户端配置文件以使用节点"
         showconf
-    fi
 }
 
 changeuuid(){
