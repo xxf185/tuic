@@ -442,7 +442,6 @@ changeconf(){
             3 ) changepasswd ;;
             * ) exit 1 ;;
         esac
-    fi
 }
 
 showconf(){
