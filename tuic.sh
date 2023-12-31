@@ -443,7 +443,7 @@ showconf(){
     green "Clash Meta 客户端配置文件已保存到 /root/tuic/clash-meta.yaml"
     yellow "Tuic 节点配置明文如下，并保存到 /root/tuic/tuic.txt"
     yellow "$(cat /root/tuic/tuic.txt)"
-    green"Tuic 节点链接如下，并保存到 /root/tuic/url.txt"
+    green "Tuic 节点链接如下，并保存到 /root/tuic/url.txt"
     yellow "$(cat /root/tuic/url.txt)"
 }
 
