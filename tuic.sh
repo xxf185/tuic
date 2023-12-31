@@ -183,18 +183,11 @@ tuic_port(){
 }
 
 inst_tuv5(){
-    if [[ $(tuic -v) == "0.8.5" ]]; then
-        red "检测到已安装 Tuic V4，请先卸载再安装 Tuic V5！"
-        exit 1
-    fi
-
     check_ip
-
     if [[ ! ${SYSTEM} == "CentOS" ]]; then
         ${PACKAGE_UPDATE}
     fi
     ${PACKAGE_INSTALL} wget curl sudo
-
     wget https://github.com/xxf185/tuic/releases/download/tuic-server-1.0.0/tuic-server-latest-linux-$(archAffix) -O /usr/local/bin/tuic
     if [[ -f "/usr/local/bin/tuic" ]]; then
         chmod +x /usr/local/bin/tuic
