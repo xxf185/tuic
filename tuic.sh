@@ -458,7 +458,7 @@ menu() {
     echo ""
     echo -e " ${YELLOW}1.安装${PLAIN} "
     echo -e " ${YELLOW}2.卸载${PLAIN} "
-    echo -e " ${YELLOW}3.关闭、启动、重启${PLAIN} "
+    echo -e " ${YELLOW}3.关闭.启动.重启${PLAIN} "
     echo -e " ${YELLOW}4.修改配置${PLAIN} "
     echo -e " ${YELLOW}5.查看配置${PLAIN} "
     echo -e " ${YELLOW}0.退出脚本${PLAIN} "
