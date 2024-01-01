@@ -77,7 +77,7 @@ check_ip(){
 tuic_cert(){
     green "Tuic 协议证书申请方式如下："
     echo ""
-    echo -e " ${YELLOW}1.脚本自动申请(默认${PLAIN}"
+    echo -e " ${YELLOW}1.脚本自动申请(默认)${PLAIN}"
     echo -e " ${YELLOW}2.自定义证书路径${PLAIN}"
     echo ""
     read -rp "请输入选项 [1-2]: " certInput
