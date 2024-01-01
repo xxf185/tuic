@@ -241,6 +241,7 @@ EOF
 }
 EOF
     cat << EOF > /root/tuic/tuic.txt
+    yellow
 Sagernet、Nekobox 与 小火箭 配置说明（以下6项必填）：
 {
     服务器地址：$domain
@@ -438,11 +439,15 @@ changeconf(){
 }
 
 showconf(){
+    yellow
     green "客户端配置文件 tuic-client.json 内容如下，并保存到 /root/tuic/tuic-client.json"
     yellow "$(cat /root/tuic/tuic-client.json)"
+    yellow
     green "Clash Meta 客户端配置文件已保存到 /root/tuic/clash-meta.yaml"
+    yellow
     yellow "Tuic 节点配置明文如下，并保存到 /root/tuic/tuic.txt"
     yellow "$(cat /root/tuic/tuic.txt)"
+    yellow
     green "Tuic 节点链接如下，并保存到 /root/tuic/url.txt"
     yellow "$(cat /root/tuic/url.txt)"
 }
