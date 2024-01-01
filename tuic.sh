@@ -241,7 +241,6 @@ EOF
 }
 EOF
     cat << EOF > /root/tuic/tuic.txt
-    yellow
 Sagernet、Nekobox 与 小火箭 配置说明（以下6项必填）：
 {
     服务器地址：$domain
