@@ -50,8 +50,8 @@ fi
 
 archAffix(){
     case "$(uname -m)" in
-        x86_64 | amd64 ) echo 'amd64' ;;
-        armv8 | arm64 | aarch64 ) echo 'arm64' ;;
+        x86_64 | amd64 ) echo 'x86_64-unknown-linux-gnu' ;;
+        armv8 | arm64 | aarch64 ) echo 'aarch64-unknown-linux-gnu' ;;
         * ) red "不支持的CPU架构!" && exit 1 ;;
     esac
 }
@@ -188,7 +188,7 @@ inst_tuv5(){
         ${PACKAGE_UPDATE}
     fi
     ${PACKAGE_INSTALL} wget curl sudo
-    wget https://github.com/xxf185/tuic/releases/download/tuic-server-1.0.0/tuic-server-latest-linux-$(archAffix) -O /usr/local/bin/tuic
+    wget https://github.com/xxf185/tuic/releases/latest/download/tuic-server-1.0.0-$(archAffix) -O /usr/local/bin/tuic
     if [[ -f "/usr/local/bin/tuic" ]]; then
         chmod +x /usr/local/bin/tuic
     else
