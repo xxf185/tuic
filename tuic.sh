@@ -51,7 +51,7 @@ fi
 archAffix(){
     case "$(uname -m)" in
         x86_64 | amd64 ) echo 'x86_64-linux' ;;
-        armv8 | arm64 | aarch64 ) echo 'aarch64-inux' ;;
+        armv8 | arm64 | aarch64 ) echo 'aarch64-linux' ;;
         * ) red "不支持的CPU架构!" && exit 1 ;;
     esac
 }
