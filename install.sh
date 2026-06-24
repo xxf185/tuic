@@ -36,7 +36,7 @@ check_root() {
 install_command() {
     cat > "$TUIC_CMD" <<'CMDEOF'
 #!/bin/bash
-bash <(curl -fsSL https://raw.githubusercontent.com/ccj241/tuic/main/tuic-installer.sh) "$@"
+bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/tuic/main/tuic-install.sh) "$@"
 CMDEOF
     chmod 755 "$TUIC_CMD"
 }
