@@ -159,22 +159,17 @@ EOF
 # -------------------- 系统服务 --------------------
 
 setup_service() {
-    cat > "$SERVICE_FILE" <<EOF
+    cat << EOF >/etc/systemd/system/tuic.service
 [Unit]
 Description=tuic Service
 Documentation=https://github.com/xxf185/tuic
-After=network.target nss-lookup.target
-
+After=network.target
 [Service]
 User=root
-WorkingDirectory=$INSTALL_DIR
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-ExecStart=/usr/local/bin/tuic -c $CONFIG_FILE
+ExecStart=/usr/local/bin/tuic -c /etc/tuic/tuic.json
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=infinity
-
 [Install]
 WantedBy=multi-user.target
 EOF
