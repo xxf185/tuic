@@ -209,7 +209,7 @@ show_result() {
         echo -e ""
         echo -e "--------------------链接--------------------"
         echo -e ""
-        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?sni=bing.com&congestion_control=bbr&alpn=h3&udp_relay_mode=native&allow_insecure=1#tuic${NC}"
+        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?sni=bing.com&congestion_control=bbr&alpn=h3&udp_relay_mode=quic&allow_insecure=1#tuic${NC}"
         echo ""
         echo -e "管理命令:tuic"
         echo ""
