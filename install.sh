@@ -159,7 +159,7 @@ EOF
 # -------------------- 系统服务 --------------------
 
 setup_service() {
-    cat << EOF >/etc/systemd/system/tuic.service
+     cat << EOF >/etc/systemd/system/tuic.service
 [Unit]
 Description=tuic Service
 Documentation=https://github.com/xxf185/tuic
