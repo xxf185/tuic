@@ -31,6 +31,19 @@ check_root() {
         error "请使用 root 用户运行此脚本，或使用: sudo bash $0"
     fi
 }
+# -------------------- 快捷命令 --------------------
+
+install_command() {
+    cat > "$TUIC_CMD" <<'CMDEOF'
+#!/bin/bash
+bash <(curl -fsSL https://raw.githubusercontent.com/ccj241/tuic/main/tuic-installer.sh) "$@"
+CMDEOF
+    chmod 755 "$TUIC_CMD"
+}
+
+remove_command() {
+    rm -f "$TUIC_CMD"
+}
 
 # -------------------- 依赖安装 --------------------
 
@@ -96,7 +109,7 @@ download_tuic() {
     if [ "$downloaded" = false ]; then
         error "下载 tuic-server 失败，已尝试所有下载源"
     fi
-    chmod 755 "chmod +x /usr/local/bin/tuic"
+    chmod 755 "$INSTALL_DIR/tuic-server"
     info "下载完成"
 }
 
