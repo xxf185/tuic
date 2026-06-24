@@ -463,7 +463,7 @@ menu() {
     echo -e " ${YELLOW}5.查看配置${PLAIN} "
     echo -e " ${YELLOW}0.退出脚本${PLAIN} "
     echo ""
-    read -rp "请输入选项 [0-5]: " menuInput
+    read -rp "选项 [0-5]: " menuInput
     case $menuInput in
         1 ) inst_tuv5 ;;
         2 ) unst_tuv5 ;;
