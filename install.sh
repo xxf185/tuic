@@ -139,7 +139,7 @@ generate_config() {
   "certificate": "$INSTALL_DIR/ca.crt",
   "private_key": "$INSTALL_DIR/ca.key",
   "congestion_control": "bbr",
-  "alpn": ["h3", "spdy/3.1"],
+  "alpn": "h3",
   "udp_relay_ipv6": true,
   "zero_rtt_handshake": false,
   "dual_stack": true,
