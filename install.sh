@@ -92,9 +92,6 @@ download_tuic() {
     latest=$(curl -sL "https://api.github.com/repos/xxf185/tuic/releases/latest" \
         | jq -r '.tag_name // empty' 2>/dev/null) || true
 
-    fi
-
-
     info "最新版本: $latest"
 
     info "正在下载 tuic-server..."
