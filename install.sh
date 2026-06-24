@@ -15,10 +15,10 @@ YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-INSTALL_DIR="/etc/tuic"
+INSTALL_DIR="/root/tuic"
 SERVICE_FILE="/etc/systemd/system/tuic.service"
 CONFIG_FILE="$INSTALL_DIR/config.json"
-TUIC_CMD="/usr/local/bin/tuic"
+
 
 # -------------------- 工具函数 --------------------
 
@@ -30,20 +30,6 @@ check_root() {
     if [ "$(id -u)" -ne 0 ]; then
         error "请使用 root 用户运行此脚本，或使用: sudo bash $0"
     fi
-}
-
-# -------------------- 快捷命令 --------------------
-
-install_command() {
-    cat > "$TUIC_CMD" <<'CMDEOF'
-#!/bin/bash
-bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/tuic/master/install.sh) "$@"
-CMDEOF
-    chmod 755 "$TUIC_CMD"
-}
-
-remove_command() {
-    rm -f "$TUIC_CMD"
 }
 
 # -------------------- 依赖安装 --------------------
@@ -159,17 +145,22 @@ EOF
 # -------------------- 系统服务 --------------------
 
 setup_service() {
-     cat << EOF >/etc/systemd/system/tuic.service
+    cat > "$SERVICE_FILE" <<EOF
 [Unit]
-Description=tuic Service
-Documentation=https://github.com/xxf185/tuic
-After=network.target
+Description=TUIC v5 Server
+Documentation=https://github.com/ccj241/tuic
+After=network.target nss-lookup.target
+
 [Service]
 User=root
-ExecStart=/usr/local/bin/tuic -c /etc/tuic/tuic.json
+WorkingDirectory=$INSTALL_DIR
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+ExecStart=$INSTALL_DIR/tuic-server -c $CONFIG_FILE
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=infinity
+
 [Install]
 WantedBy=multi-user.target
 EOF
