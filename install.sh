@@ -140,7 +140,7 @@ generate_config() {
   "certificate": "$INSTALL_DIR/ca.crt",
   "private_key": "$INSTALL_DIR/ca.key",
   "congestion_control": "bbr",
-  "alpn": "h3",
+  "alpn": ["h3", "spdy/3.1"],
   "udp_relay_ipv6": true,
   "zero_rtt_handshake": false,
   "dual_stack": true,
@@ -207,11 +207,11 @@ show_result() {
         echo -e "  UUID:     ${CYAN}$uuid${NC}"
         echo -e "  密码:     ${CYAN}$password${NC}"
         echo -e "  拥塞控制: ${CYAN}bbr${NC}"
-        echo -e "  ALPN:     ${CYAN}h3${NC}"
+        echo -e "  ALPN:     ${CYAN}h3,spdy/3.1${NC}"
         echo -e ""
         echo -e "--------------------链接--------------------"
         echo -e ""
-        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?sni=bing.com&congestion_control=bbr&alpn=h3&udp_relay_mode=native&allow_insecure=1#tuic${NC}"
+        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?sni=bing.com&congestion_control=bbr&alpn=h3,spdy/3.1&udp_relay_mode=native&allow_insecure=1#tuic${NC}"
         echo ""
         echo -e "管理命令:tuic"
         echo ""
