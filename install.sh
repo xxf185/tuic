@@ -15,7 +15,7 @@ YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-INSTALL_DIR="/root/tuic"
+INSTALL_DIR="/etc/tuic"
 SERVICE_FILE="/etc/systemd/system/tuic.service"
 CONFIG_FILE="$INSTALL_DIR/config.json"
 TUIC_CMD="/usr/local/bin/tuic"
@@ -161,7 +161,7 @@ EOF
 setup_service() {
     cat > "$SERVICE_FILE" <<EOF
 [Unit]
-Description=TUIC v5 Server
+Description=tuic Service
 Documentation=https://github.com/xxf185/tuic
 After=network.target nss-lookup.target
 
