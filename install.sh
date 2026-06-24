@@ -69,11 +69,11 @@ detect_arch() {
     local arch
     arch=$(uname -m)
     case $arch in
-        x86_64)  echo "x86_64-linux" ;;
-        i686)    echo "i686-linux" ;;
-        aarch64) echo "aarch64-linux" ;;
-        armv7l)  echo "armv7-linux" ;;
-        *)       error "不支持的系统架构: $arch" ;;
+        x86_64)  echo "x86_64-linux-musl";;
+        i686)    echo "i686-linux-musl";;
+        aarch64) echo "aarch64-linux-musl";;
+        armv7l)  echo "armv7-linux-musl";;
+        *)       error "不支持的系统架构: $arch";;
     esac
 }
 
