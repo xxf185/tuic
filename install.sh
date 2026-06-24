@@ -110,7 +110,7 @@ download_tuic() {
     if [ "$downloaded" = false ]; then
         error "下载 tuic-server 失败，已尝试所有下载源"
     fi
-    chmod 755 "$INSTALL_DIR/tuic-server"
+    chmod 755 "chmod +x /usr/local/bin/tuic"
     info "下载完成"
 }
 
