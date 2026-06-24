@@ -2,13 +2,11 @@
 
 # ============================================================
 #  TUIC v5 一键安装脚本
-#  https://github.com/ccj241/tuic
+#  https://github.com/xxf185/tuic
 #
 #  支持系统: Ubuntu / Debian / CentOS (x86_64 / aarch64)
-#  用法:
-#    交互式安装:     bash tuic-installer.sh
-#    无人值守安装:   bash tuic-installer.sh --auto
-#    安装后管理:     tuic
+# 
+#  快捷命令: tuic
 # ============================================================
 
 set -e
@@ -42,7 +40,7 @@ check_root() {
 install_command() {
     cat > "$TUIC_CMD" <<'CMDEOF'
 #!/bin/bash
-bash <(curl -fsSL https://raw.githubusercontent.com/ccj241/tuic/main/tuic-installer.sh) "$@"
+bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/tuic/main/install.sh) "$@"
 CMDEOF
     chmod 755 "$TUIC_CMD"
 }
@@ -74,10 +72,10 @@ detect_arch() {
     local arch
     arch=$(uname -m)
     case $arch in
-        x86_64)  echo "x86_64-unknown-linux-gnu" ;;
-        i686)    echo "i686-unknown-linux-gnu" ;;
-        aarch64) echo "aarch64-unknown-linux-gnu" ;;
-        armv7l)  echo "armv7-unknown-linux-gnueabi" ;;
+        x86_64)  echo "x86_64-linux" ;;
+        i686)    echo "i686-linux" ;;
+        aarch64) echo "aarch64-linux" ;;
+        armv7l)  echo "armv7-linux" ;;
         *)       error "不支持的系统架构: $arch" ;;
     esac
 }
@@ -91,20 +89,12 @@ download_tuic() {
     local latest=""
 
     # 优先从自己的镜像仓库获取
-    latest=$(curl -sL "https://api.github.com/repos/ccj241/tuic/releases/latest" \
+    latest=$(curl -sL "https://api.github.com/repos/xxf185/tuic/releases/latest" \
         | jq -r '.tag_name // empty' 2>/dev/null) || true
 
-    # 备用: 上游仓库
-    if [ -z "$latest" ]; then
-        latest=$(curl -sL "https://api.github.com/repos/EAimTY/tuic/releases" \
-            | jq -r '[.[] | select(.tag_name | startswith("tuic-server"))][0].tag_name // empty' 2>/dev/null) || true
     fi
 
-    # 兜底: 硬编码版本
-    if [ -z "$latest" ]; then
-        warn "无法从 API 获取版本号，使用默认版本"
-        latest="tuic-server-1.0.0"
-    fi
+
     info "最新版本: $latest"
 
     info "正在下载 tuic-server..."
@@ -113,9 +103,7 @@ download_tuic() {
     # 按优先级尝试多个下载源
     local downloaded=false
     local urls=(
-        "https://github.com/ccj241/tuic/releases/download/$latest/$latest-$server_arch"
-        "https://github.com/EAimTY/tuic/releases/download/$latest/$latest-$server_arch"
-        "https://github.com/tuic-protocol/tuic/releases/download/$latest/$latest-$server_arch"
+        "https://github.com/xxf185/tuic/releases/latest/download/tuic-server-$server_arch"
     )
 
     for url in "${urls[@]}"; do
@@ -158,7 +146,7 @@ generate_config() {
   "certificate": "$INSTALL_DIR/ca.crt",
   "private_key": "$INSTALL_DIR/ca.key",
   "congestion_control": "bbr",
-  "alpn": ["h3", "spdy/3.1"],
+  "alpn": "h3",
   "udp_relay_ipv6": true,
   "zero_rtt_handshake": false,
   "dual_stack": true,
@@ -180,7 +168,7 @@ setup_service() {
     cat > "$SERVICE_FILE" <<EOF
 [Unit]
 Description=TUIC v5 Server
-Documentation=https://github.com/ccj241/tuic
+Documentation=https://github.com/xxf185/tuic
 After=network.target nss-lookup.target
 
 [Service]
@@ -217,25 +205,24 @@ show_result() {
 
     sleep 2
     if systemctl is-active --quiet tuic; then
-        echo ""
-        echo -e "${GREEN}======================================${NC}"
-        echo -e "${GREEN}    TUIC v5 安装完成!                 ${NC}"
-        echo -e "${GREEN}======================================${NC}"
+        echo -e ""
+        echo -e "----------TUIC配置文件----------"
+        echo -e ""
         echo -e "  服务器:   ${CYAN}$public_ip${NC}"
         echo -e "  端口:     ${CYAN}$port${NC}"
         echo -e "  UUID:     ${CYAN}$uuid${NC}"
         echo -e "  密码:     ${CYAN}$password${NC}"
         echo -e "  拥塞控制: ${CYAN}bbr${NC}"
-        echo -e "  ALPN:     ${CYAN}h3,spdy/3.1${NC}"
-        echo -e "${GREEN}======================================${NC}"
+        echo -e "  ALPN:     ${CYAN}h3${NC}"
+        echo -e ""
+        echo -e "--------------------链接--------------------"
+        echo -e ""
+        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?sni=bing.com&congestion_control=bbr&alpn=h3&udp_relay_mode=native&allow_insecure=1#tuic${NC}"
         echo ""
-        echo -e "${YELLOW}客户端导入链接 (NekoBox / v2rayN / Clash Meta):${NC}"
-        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?congestion_control=bbr&alpn=h3,spdy/3.1&udp_relay_mode=native&allow_insecure=1${NC}"
-        echo ""
-        echo -e "${GREEN}提示: 下次管理 TUIC 只需输入 ${CYAN}tuic${GREEN} 即可${NC}"
+        echo -e "管理命令:tuic"
         echo ""
     else
-        warn "TUIC 服务未能启动，请检查: systemctl status tuic"
+        warn "TUIC 服务未能启动"
     fi
 }
 
@@ -300,12 +287,10 @@ show_status() {
 main() {
     check_root
 
-    echo ""
-    echo -e "${CYAN}╔══════════════════════════════════════╗${NC}"
-    echo -e "${CYAN}║    TUIC v5 一键安装管理脚本          ║${NC}"
-    echo -e "${CYAN}║    github.com/ccj241                 ║${NC}"
-    echo -e "${CYAN}╚══════════════════════════════════════╝${NC}"
-    echo ""
+    echo -e ""
+    echo -e "--------------TUIC v5 一键安装管理脚本-----------"
+    echo -e ""
+
 
     # 已安装则显示管理菜单
     if [ -d "$INSTALL_DIR" ] && [ -f "$INSTALL_DIR/tuic-server" ]; then
@@ -319,7 +304,7 @@ main() {
         echo "  6) 重启服务"
         echo "  0) 退出"
         echo ""
-        read -rp "请输入选项 [0-6]: " choice
+        read -rp "选项 [0-6]: " choice
         case $choice in
             1) uninstall_tuic ;;
             2) modify_tuic; exit 0 ;;
@@ -356,7 +341,7 @@ main() {
 
     local server_arch
     server_arch=$(detect_arch)
-    info "检测到系统架构: $server_arch"
+    info "系统架构: $server_arch"
 
     download_tuic "$server_arch"
     generate_certs
