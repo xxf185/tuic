@@ -18,7 +18,7 @@ NC='\033[0m'
 INSTALL_DIR="/root/tuic"
 SERVICE_FILE="/etc/systemd/system/tuic.service"
 CONFIG_FILE="$INSTALL_DIR/config.json"
-
+TUIC_CMD="/usr/local/bin/tuic"
 
 # -------------------- 工具函数 --------------------
 
