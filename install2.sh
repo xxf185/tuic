@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
 
 ### ===== 配置参数 =====
 WORK_DIR="/usr/local/tuic"
