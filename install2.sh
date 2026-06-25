@@ -199,7 +199,7 @@ LimitNOFILE=1048576
 WantedBy=multi-user.target
 EOF
         systemctl daemon-reload
-        systemctl enable ${SERVICE_NAME}
+        systemctl enable ${SERVICE_NAME} >/dev/null 2>&1
         systemctl start ${SERVICE_NAME}
     else
         cat > /etc/init.d/${SERVICE_NAME} <<EOF
