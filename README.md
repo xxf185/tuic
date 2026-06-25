@@ -7,7 +7,7 @@ bash <(wget -qO- -o- https://raw.githubusercontent.com/xxf185/tuic/master/instal
 
 
 ```
-bash <(wget -qO- -o- https://raw.githubusercontent.com/xxf185/tuic/master/install2.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/tuic/master/install2.sh)
 ```
 
 
