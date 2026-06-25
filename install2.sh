@@ -200,6 +200,7 @@ WantedBy=multi-user.target
 EOF
         systemctl daemon-reload
         systemctl enable ${SERVICE_NAME}
+        systemctl start ${SERVICE_NAME}
     else
         cat > /etc/init.d/${SERVICE_NAME} <<EOF
 #!/sbin/openrc-run
