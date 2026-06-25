@@ -86,12 +86,12 @@ show_info() {
     
     if [[ -n "$IP4" ]]; then
         echo -e "\n${GREEN}📎 TUIC 节点链接 (IPv4):${NC}"
-        echo -e "${YELLOW}tuic://$UUID:$PASS@$IP4:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#tuic"
+        echo -e "${YELLOW}tuic://$UUID:$PASS@$IP4:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#tuic${NC}"
     fi
     
     if [[ -n "$IP6" ]]; then
         echo -e "\n${GREEN}📎 TUIC 节点链接 (IPv6):${NC}"
-        echo -e "${YELLOW}tuic://$UUID:$PASS@[$IP6]:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#tuic"
+        echo -e "${YELLOW}tuic://$UUID:$PASS@[$IP6]:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#tuic${NC}"
     fi
     echo -e "${GREEN}=======================================${NC}\n"
 }
