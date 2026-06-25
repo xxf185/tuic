@@ -87,12 +87,12 @@ show_info() {
     
     if [[ -n "$IP4" ]]; then
         echo -e "\n${GREEN}📎 TUIC 节点链接 (IPv4):${NC}"
-        echo -e "${YELLOW}tuic://$UUID:$PASS@$IP4:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#TUIC_V4${NC}"
+        echo -e "${YELLOW}tuic://$UUID:$PASS@$IP4:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#tuic"
     fi
     
     if [[ -n "$IP6" ]]; then
         echo -e "\n${GREEN}📎 TUIC 节点链接 (IPv6):${NC}"
-        echo -e "${YELLOW}tuic://$UUID:$PASS@[$IP6]:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#TUIC_V6${NC}"
+        echo -e "${YELLOW}tuic://$UUID:$PASS@[$IP6]:$PORT?congestion_control=bbr&alpn=h3&insecure=1&sni=www.bing.com#tuic"
     fi
     echo -e "${GREEN}=======================================${NC}\n"
 }
@@ -144,7 +144,7 @@ install_tuic() {
 
     mkdir -p $WORK_DIR
     echo -e "${YELLOW}▶ 正在下载 TUIC Server...${NC}"
-    URL="https://github.com/Itsusinn/tuic/releases/latest/download/tuic-server-${TUIC_ARCH}-linux-musl"
+    URL="https://github.com/xxf185//tuic/releases/latest/download/tuic-server-${TUIC_ARCH}-linux-musl"
     if ! curl -L -o $BIN "$URL"; then
         echo -e "${RED}❌ 下载失败，请检查网络${NC}"; exit 1
     fi
