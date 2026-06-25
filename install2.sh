@@ -143,7 +143,7 @@ install_tuic() {
 
     mkdir -p $WORK_DIR
     echo -e "${YELLOW}▶ 正在下载 TUIC Server...${NC}"
-    URL="https://github.com/xxf185//tuic/releases/latest/download/tuic-server-${TUIC_ARCH}-linux-musl"
+    URL="https://github.com/xxf185/tuic/releases/latest/download/tuic-server-${TUIC_ARCH}-linux"
     if ! curl -L -o $BIN "$URL"; then
         echo -e "${RED}❌ 下载失败，请检查网络${NC}"; exit 1
     fi
