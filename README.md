@@ -6,9 +6,6 @@ bash <(wget -qO- -o- https://raw.githubusercontent.com/xxf185/tuic/master/instal
 ```
 
 
-```
-bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/tuic/master/install2.sh)
-```
 
 
 ```
