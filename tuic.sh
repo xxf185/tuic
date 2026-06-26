@@ -254,7 +254,7 @@ Sagernet、Nekobox 与 小火箭 配置说明（以下6项必填）：
 }
 EOF
 
-    url="tuic://$uuid:$passwd@$domain:$port?congestion_control=bbr&udp_relay_mode=quic&alpn=h3#tuic"
+    url="tuic://$uuid:$passwd@$domain:$port?congestion_control=bbr&udp_relay_mode=quic&alpn=h3&allow_insecure=1#tuic"
     echo ${url} > /root/tuic/url.txt
 
     cat << EOF > /root/tuic/clash-meta.yaml
