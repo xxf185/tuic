@@ -211,7 +211,6 @@ uninstall_tuic() {
     systemctl disable tuic 2>/dev/null || true
     rm -rf "$INSTALL_DIR"
     rm -f "$SERVICE_FILE"
-    remove_command
     systemctl daemon-reload
     info "TUIC 已完全卸载"
 }
@@ -344,7 +343,6 @@ main() {
 
     generate_config "$port" "$password" "$uuid"
     setup_service
-    install_command
     show_result "$port" "$password" "$uuid"
 }
 
