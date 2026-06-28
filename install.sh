@@ -343,4 +343,4 @@ main() {
     show_result "$port" "$password" "$uuid"
 }
 
-main "$@"
+main
