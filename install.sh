@@ -3,10 +3,7 @@
 #  TUIC v5 一键安装脚本
 #  https://github.com/xxf185/tuic
 #  支持系统: Ubuntu / Debian / CentOS (x86_64 / aarch64)
-#  快捷命令: tuic
 # ============================================================
-
-
 # 颜色
 RED='\033[0;31m'
 GREEN='\033[0;32m'
