@@ -30,19 +30,6 @@ check_root() {
         error "请使用 root 用户运行此脚本，或使用: sudo bash $0"
     fi
 }
-# -------------------- 快捷命令 --------------------
-
-install_command() {
-    cat > "$TUIC_CMD" <<'CMDEOF'
-#!/bin/bash
-bash <(curl -fsSL https://raw.githubusercontent.com/xxf185/tuic/master/install.sh) "$@"
-CMDEOF
-    chmod 755 "$TUIC_CMD"
-}
-
-remove_command() {
-    rm -f "$TUIC_CMD"
-}
 
 # -------------------- 依赖安装 --------------------
 
@@ -210,8 +197,6 @@ show_result() {
         echo -e "--------------------链接--------------------"
         echo -e ""
         echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?congestion_control=bbr&alpn=h3&udp_relay_mode=quic&allow_insecure=1#tuic${NC}"
-        echo ""
-        echo -e "管理命令:tuic"
         echo ""
     else
         warn "TUIC 服务未能启动"
