@@ -144,7 +144,7 @@ setup_service() {
     cat > "$SERVICE_FILE" <<EOF
 [Unit]
 Description=TUIC v5 Server
-Documentation=https://github.com/ccj241/tuic
+Documentation=https://github.com/xxf185/tuic
 After=network.target nss-lookup.target
 
 [Service]
