@@ -193,7 +193,7 @@ show_result() {
         echo -e ""
         echo -e "--------------------链接--------------------"
         echo -e ""
-        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?congestion_control=bbr&alpn=h3&udp_relay_mode=quic&allow_insecure=1#tuic${NC}"
+        echo -e "${CYAN}tuic://$uuid:$password@$public_ip:$port/?congestion_control=bbr&alpn=h3&udp_relay_mode=quic&allow_insecure=0#tuic${NC}"
         echo ""
     else
         warn "TUIC 服务未能启动"
